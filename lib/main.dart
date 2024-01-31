@@ -5,7 +5,6 @@ import 'package:image_editor/Constants/preferences.dart';
 import 'Constants/Utils/utils.dart';
 import 'Constants/constants.dart';
 import 'GetxBinding/binding.dart';
-import 'Localization/Translations/translations.dart';
 import 'Routing/pages.dart';
 import 'Services/connectivity_service.dart';
 import 'Ui/Splash/splash_screen.dart';
@@ -50,9 +49,6 @@ class MyApp extends StatelessWidget {
               onInit: () => onInitMain(context),
               debugShowCheckedModeBanner: false,
               defaultTransition: Transition.cupertino,
-              //translation
-              translationsKeys: AppTranslation.translationsKeys,
-              locale: value,
               fallbackLocale: const Locale('en', 'US'),
             ),
         ),

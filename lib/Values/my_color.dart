@@ -5,6 +5,8 @@ class MyColor {
 
   // app Theme colors
   static const appTheme = Color(0xFF2c2c2c);
+  static const appTheme20 = Color(0x332c2c2c);
+  static const appTheme80 = Color(0xcc2c2c2c);
   static const shadowColor = Color(0x66316B62);
   static const themeBgColor = Color(0xFFf6f6fb);
   static const greenAppTheme = Color(0xFF008037);

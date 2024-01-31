@@ -51,7 +51,7 @@ class DialogWidget extends StatelessWidget {
       padding: dialogPadding ?? EdgeInsets.zero,
       child: Material(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 60.r)),
+            borderRadius: BorderRadius.circular(borderRadius ?? 20.r)),
         child: _buildChild(context),
       ),
     );
@@ -86,13 +86,13 @@ class DialogWidget extends StatelessWidget {
             ),
           ),
         ),
-        const SpaceH70(),
+        const SpaceH20(),
         titleWidget != null
             ? titleWidget!
             : dialogTitle != null
             ? Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: Sizes.WIDTH_100,
+              horizontal: Sizes.WIDTH_40,
               vertical: Sizes.HEIGHT_10),
           child: Text(
             dialogTitle!,
@@ -106,7 +106,7 @@ class DialogWidget extends StatelessWidget {
           ),
         )
             : const SizedBox.shrink(),
-        const SpaceH40(),
+        const SpaceH20(),
         bodyWidget != null
             ? bodyWidget!
             : dialogBody != null
@@ -155,7 +155,7 @@ class DialogWidget extends StatelessWidget {
                 ),
               ],
             ),
-        const SpaceH50(),
+        const SpaceH20(),
       ],
     ),
   );

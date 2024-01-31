@@ -24,34 +24,36 @@ class HomeController extends GetxController {
   XFile? image;
   final FaceDetector faceDetector = GoogleMlKit.vision.faceDetector();
 
-  // [
-  // Sticker(
-  // child: Image.network(
-  // "https://images.unsplash.com/photo-1640113292801-785c4c678e1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80"),
-  // // must have unique id for every Sticker
-  // id: "uniqueId_111",
-  // ),
-  // Sticker(
-  // child: const Text("Hello"),
-  // id: "uniqueId_222",
-  // isText: true,
-  // ),
-  // ]
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    await selectImage();
+    Future.delayed(const Duration(milliseconds: 400),imageDialog);
+    // await selectImage();
   }
 
-  Future<void> selectImage() async {
-    image = await Utils.getImage(isCamera: true);
-    // Utils.showToast(value: "Here is file ${image?.path}");
-    if (image != null) {
-      detectFaces();
-      // addSticker(child: Image.file(File(image!.path),height: Sizes.HEIGHT_300,width: screenWidth,));
-    }
-    update();
+  Future<void> imageDialog() async{
+    Utils.selectImageDialog(
+      onCancelTap: () => Get.back(),title: MyString.chooseMedia,
+      onCameraTap: () async {
+        Get.back();
+        XFile? xFile = await Utils.getImage(isCamera: true);
+        if(xFile != null){
+          image = xFile;
+          detectFaces();
+        }
+        update();
+      },
+      onGalleryTap: () async {
+        Get.back();
+        XFile? xFile = await Utils.getImage(isCamera: false);
+        if(xFile != null){
+          image = xFile;
+          detectFaces();
+        }
+        update();
+      },
+    );
   }
 
   void addSticker({required Widget child,Size? sizes}) {
@@ -74,27 +76,24 @@ class HomeController extends GetxController {
 
     if (imageData != null) {
       var imageName = DateTime.now().microsecondsSinceEpoch.toString();
-
       try {
-        // Get the directory for downloads
-        Directory? downloadsDirectory = await getDownloadsDirectory();
+        // Directory? downloadsDirectory = (await getExternalStorageDirectories(type: StorageDirectory.downloads));
+        Directory? downloadsDirectory;
+        if (Platform.isIOS) {
+          downloadsDirectory = await getDownloadsDirectory();
+        } else {
+          downloadsDirectory = Directory("/storage/emulated/0/Download");
+        }
 
         if (downloadsDirectory != null) {
           String imagePath = '${downloadsDirectory.path}/$imageName.png';
-          File imageFile = File(imagePath);
-          imageFile.writeAsBytesSync(imageData);
+         File(imagePath).writeAsBytesSync(imageData);
           // ignore: avoid_print
-          print("Image saved at: $imagePath");
+          Debug.setLog("Image saved at: $imagePath");
           Utils.showToast(value: "이미지가 다운로드에 성공적으로 저장되었습니다.");
-        } else {
-          // If unable to get the downloads directory, fall back to the application documents directory
-          var appDocDir = await getApplicationDocumentsDirectory();
-          String imagePath = '${appDocDir.path}/$imageName.png';
-          File imageFile = File(imagePath);
-          imageFile.writeAsBytesSync(imageData);
-          // ignore: avoid_print
-          Utils.showToast(value: "이미지가 문서에 성공적으로 저장되었습니다.");
-          print("Image saved at: $imagePath");
+
+        }else{
+          Utils.showToast(value: "다운로드를 찾지 못했습니다");
         }
       } catch (e) {
         Debug.setLog("Somthing went wrong --> ${e}");
@@ -117,16 +116,20 @@ class HomeController extends GetxController {
   }
 
   Future<void> onBackTap() async{
-    await selectImage();
+    await imageDialog();
   }
 
   Future<void> detectFaces() async {
     final inputImage = InputImage.fromFilePath(File(image!.path).path);
     final faces = await faceDetector.processImage(inputImage);
     Debug.setLog("here is faces --> ${faces}");
-    Utils.showToast(value: "얼굴을 찾을 수 없습니다");
-    if(faces.length > 1){
-      Utils.showToast(value: "두 얼굴 발견");
+    if(faces.isEmpty){
+     Utils.showToast(value: "얼굴을 찾을 수 없습니다");
+    }else{
+      Utils.showToast(value: "얼굴 발견");
+    }
+    if(faces.length > 2){
+      Utils.showToast(value: '다시찍기');
     }
   }
 

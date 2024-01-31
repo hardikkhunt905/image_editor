@@ -144,7 +144,7 @@ class CustomDialog {
             child: Wrap(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: Sizes.WIDTH_40,vertical: Sizes.HEIGHT_10),
+                  margin: EdgeInsets.symmetric(horizontal: Sizes.WIDTH_20,vertical: Sizes.HEIGHT_10),
                   child: DialogWidget(
                     key: key,
                     buttonWidget: buttonWidget,

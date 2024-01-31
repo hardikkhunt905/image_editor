@@ -2,23 +2,17 @@ part of values;
 
 class MyString{
 
-  static const String appName = 'TrakWel Dashboard';
+  static const String appName = 'Image Editor';
 
   static const success = 'success';
   static const save = 'Save';
 
-  //login strings
-  static const emailHint = 'User Name & E-mail';
-  static const passwordHint = 'Password';
-  static const String passwordValidation = "Please Enter Password";
-  static const String emailValidation = "Please Enter Email Address";
-  static const String validEmailValidation = "Please Enter Valid Email Address";
-  static const String forgotPassword = "Forgot password";
-  static const String email = "Email";
-  static const String or = "OR";
-  static const String welcomeBack = "Welcome Back";
-
-  static const imageError = "Can not get image!!";
+  // home screen
+  static const String chooseImage = 'Choose Image';
+  static const String imageError = 'Can not get image!!';
+  static const String chooseMedia = 'Choose Media';
+  static const camera = 'Camera';
+  static const gallery = 'Gallery';
 
   //No Internet Dialog Strings
   static const tryAgain = 'Try again';
@@ -77,21 +71,8 @@ class MyString{
   static const skip = 'Skip';
 
 
-
-  // Validation strings
-  static const enterFieldData = 'Please fill the data';
-  static const validName = 'Enter valid name';
-  static const validEmail = 'Enter valid email';
-  static const validPassword = 'Enter valid password';
-  static const passwordLengthError = 'invalid length';
-
   static const somethingWrong = 'Something is wrong';
 
-
-  static const backupDescription= 'Back up your data to google drive. You can restore them when you reinstall app.';
-  static const restoreDescription= 'Restore your backup file from google drive.you can sync your data with app';
-
-  // static const or = "OR";
 
 
 }

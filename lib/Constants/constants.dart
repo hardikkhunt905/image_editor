@@ -56,14 +56,6 @@ class Debug {
   }
 }
 
-showOverlayProgressBar({Future Function()? close}){
-  Get.showOverlay(asyncFunction: close!,loadingWidget: const Center(
-    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(MyColor.blue),backgroundColor:Colors.white),
-  ),);
-}
-
-String showAppReviewDialog = 'showAppReviewDialog';
-
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override
   Widget buildViewportChrome(

@@ -50,12 +50,10 @@ class HomeScreen extends StatelessWidget {
     ],
   );
 
-  Widget stickerViewWidget() => GetBuilder<HomeController>(builder: (logic) {
-        return StickerView(
+  Widget stickerViewWidget() => GetBuilder<HomeController>(builder: (logic) => StickerView(
           bgImage: _logic.image != null ? _logic.image!.path : null,
-          stickerList: _logic.stickerList.value,
-        );
-      });
+          stickerList: _logic.stickerList,
+        ));
 
   Widget bottomWidget() => Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -68,7 +66,7 @@ class HomeScreen extends StatelessWidget {
         ],
       );
 
-  Widget saveButtonWidget() => CommonWidgets.appButton(
+  Widget saveButtonWidget() => CommonWidgets.appButton(buttonRadius: Sizes.RADIUS_12,
       width: screenWidth, buttonText: "저장하기", onTap: _logic.onSaveTap);
 
   Widget textContainer({required String text,void Function()? onTap}) => GestureDetector(
@@ -77,7 +75,7 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: Sizes.WIDTH_14, vertical: Sizes.HEIGHT_10),
           decoration: Decorations.roundedBoxDecoration(
-              borderRadius: Sizes.RADIUS_12, bgColor: MyColor.white),
+              borderRadius: Sizes.RADIUS_12, bgColor: MyColor.grey),
           child: Text(
             text,
             style: TextStyles.titleTextStyle.copyWith(color: MyColor.black),

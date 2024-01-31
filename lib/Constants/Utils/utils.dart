@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_editor/Elements/Widgets/Dialog/custom_dialog.dart';
+import 'package:image_editor/Elements/Widgets/custom_divider.dart';
 import 'package:image_editor/Elements/Widgets/toast.dart';
 import 'package:image_editor/Values/values.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +28,90 @@ class Utils {
       ),
     );
   }
+
+
+  static void selectImageDialog(
+      {
+        String? title,
+        void Function()? onCameraTap,
+        void Function()? onGalleryTap,
+        void Function()? onCancelTap}) async {
+    CustomDialog().showCustomDialog(
+      bottomColor: MyColor.white,
+      dialogTitle: title ?? MyString.chooseImage,
+      titleStyle: TextStyles.titleTextStyle
+          .copyWith(color: MyColor.black, fontSize: Sizes.TEXT_SIZE_18),
+      bodyWidget: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Sizes.WIDTH_20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                selectImageItem(
+                  iconPath: IconPath.cameraIcon,
+                  title: MyString.camera,
+                  onTap: onCameraTap,
+                ),
+                const SpaceW20(),
+                selectImageItem(
+                    iconPath: IconPath.galleryIcon,
+                    title: MyString.gallery,
+                    onTap: onGalleryTap),
+              ],
+            ),
+          ),
+          const SpaceH20(),
+          CustomDivider(
+            width: double.maxFinite,
+            height: Sizes.HEIGHT_1,
+            color: MyColor.appTheme,
+          ),
+          const SpaceH20(),
+        ],
+      ),
+      buttonWidget: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+              onTap: onCancelTap,
+              child: Text(MyString.cancel,
+                  style: TextStyles.titleTextStyle3
+                      .copyWith(fontSize: Sizes.TEXT_SIZE_18)))
+        ],
+      ),
+    );
+  }
+
+  static Widget selectImageItem(
+      {required String iconPath,
+        required String title,
+        void Function()? onTap}) => GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: Get.mediaQuery.size.width / 3.5,
+        padding: EdgeInsets.symmetric(
+            horizontal: Sizes.WIDTH_10, vertical: Sizes.HEIGHT_18),
+        decoration: Decorations.roundedBoxDecoration(
+            bgColor: MyColor.appTheme80, borderRadius:  Sizes.RADIUS_12),
+        child: Column(
+          children: [
+            Image.asset(
+              iconPath,
+              width: Sizes.WIDTH_26,
+              height: Sizes.WIDTH_26,
+              color: MyColor.white,
+            ),
+            const SpaceH8(),
+            Text(
+              title,
+              style: TextStyles.bodyText2
+                  .copyWith(color: MyColor.white),
+            )
+          ],
+        ),
+      ),
+    );
 
 
   static Future<bool> onWillPop() async {
@@ -136,7 +221,7 @@ class Utils {
       backgroundRadius: backgroundRadius ?? Sizes.RADIUS_12,
       border: border,
       rootNavigator: rootNavigator,
-      textStyle: TextStyles.personDetailTextStyle
+      textStyle: TextStyles.appbarTitleStyle
           .copyWith(color: textColor ?? MyColor.white),
     );
   }
@@ -191,16 +276,6 @@ class Utils {
     child: CircularProgressIndicator(color: color ?? MyColor.appTheme),
   );
 
-  static Widget noDataFound({Color? color})=> Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(ImagePath.noDataImage),
-        Text('No Data Found',style: TextStyles.appbarTitleStyle.copyWith(fontWeight: FontWeight.w600),)
-      ],
-    ),
-  );
-
   static bool checkResponse({required int statusCode}) {
     if (statusCode == 200 || statusCode == 201) {
       return true;
@@ -222,7 +297,8 @@ class Utils {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery,
-        imageQuality: isCamera ? 60 : 80);
+        // imageQuality: isCamera ? 60 : 80
+    );
     if (image != null) {
       return image;
     } else {
