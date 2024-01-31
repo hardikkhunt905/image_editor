@@ -4,7 +4,6 @@ import 'package:image_editor/Values/values.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
-import '../../Constants/preferences.dart';
 import '../../Routing/Routes.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

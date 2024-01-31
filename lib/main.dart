@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:image_editor/Constants/preferences.dart';
 import 'Constants/Utils/utils.dart';
 import 'Constants/constants.dart';
 import 'GetxBinding/binding.dart';
 import 'Routing/pages.dart';
-import 'Services/connectivity_service.dart';
 import 'Ui/Splash/splash_screen.dart';
 import 'Values/values.dart';
 import 'themes/theme.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Preferences().init();
   runApp(const MyApp());
 }
 
 void Function()? onInitMain(BuildContext context){
-  ConnectivityService().initialize(); //for internet Connection
   MediaQuery.sizeOf(context).width > 450
       ? Utils.isTablet = true
       : Utils.isTablet = false;

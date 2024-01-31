@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-import 'package:image_editor/Constants/Utils/app_urls.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../Constants/Utils/methods.dart' as methods;
 import '../../../Constants/Utils/utils.dart';
 import '../../../Constants/constants.dart';
 import '../../../Elements/Lib/sticker_view/stickerview.dart';

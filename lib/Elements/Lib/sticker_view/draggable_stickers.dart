@@ -33,7 +33,10 @@ class _DraggableStickersState extends State<DraggableStickers> {
               Positioned.fill(
                 child: GestureDetector(
                   key: const Key('stickersView_background_gestureDetector'),
-                  onTap: () {},
+                  onTap: () {
+                    selectedAssetId = null;
+                    setState(() {});
+                  },
                 ),
               ),
               for (final sticker in stickers)
