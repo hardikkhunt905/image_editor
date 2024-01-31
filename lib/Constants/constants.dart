@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-const debug = true;
+const debug = false;
 const countToastDebug = false;
 const inDevelopment = true;
 
